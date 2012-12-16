@@ -1,0 +1,51 @@
+def archiveJarName="q2.jar"
+
+// We build a CopySpec for consistency
+def jposCopySpec = copySpec {
+    from(file("src/dist")) {
+        filter(
+            org.apache.tools.ant.filters.ReplaceTokens, 
+            tokens: [jarname: archiveJarName]
+        )
+    }
+    from(jar) {
+        rename { archiveJarName }
+    }
+    into("lib") {
+        from(configurations.runtime)
+    }
+}
+
+// Create the jar's manifest
+jar.manifest {
+    attributes \
+        'Implementation-Title': project.name,
+        'Implementation-Version': project.version,
+        'Main-Class': 'org.jpos.q2.Q2',
+        'Class-Path': configurations.runtime.collect { "lib/" + it.getName() }.join(' ')
+}
+
+//--------------------------------------------------
+// TASKS
+//--------------------------------------------------
+
+task version (type: JavaExec, dependsOn: classes) {
+    description = "Shows jPOS Version"
+    main = 'org.jpos.q2.Q2'
+    args = ['--version']
+    classpath configurations.runtime 
+}
+
+task dist(type: Tar) {
+    description 'Creates tar distribution'
+    into "$project.name-$version"
+    with jposCopySpec
+    compression = Compression.GZIP
+    extension "tar.gz"
+}
+
+task installApp(type: Sync) {
+    description 'Installs jPOS based application'
+    into { file("${project.buildDir}/install/${project.name}") }
+    with jposCopySpec
+}
