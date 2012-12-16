@@ -1,11 +1,11 @@
-def archiveJarName="q2.jar"
+def archiveJarName="${project.name}-${project.version}.jar"
 
 // We build a CopySpec for consistency
 def jposCopySpec = copySpec {
     from(file("src/dist")) {
         filter(
             org.apache.tools.ant.filters.ReplaceTokens, 
-            tokens: [jarname: archiveJarName]
+            tokens: [jarname: archiveJarName.toString()]
         )
     }
     from(jar) {
