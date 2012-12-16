@@ -70,7 +70,7 @@ set CMD_LINE_ARGS=%$
 @rem Setup the command line
 
 @rem Execute run
-CD ..
+CD "%APP_HOME%"
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %RUN_OPTS%  -jar @jarname@ %CMD_LINE_ARGS%
 
 :end
