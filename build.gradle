@@ -61,7 +61,7 @@ task dist (type: Tar) {
     }
 }
 
-task runtime (type: Copy, description:  'Generate runtime directory') { 
+task installApp (type: Copy, description:  'Install application in runtime directory') { 
     dependsOn 'jar'
     includeEmptyDirs true
     destinationDir = new File('runtime')
@@ -77,7 +77,7 @@ task runtime (type: Copy, description:  'Generate runtime directory') {
     }
 }
 
-task cleanRuntime (type: Delete) {
+task cleanInstallApp (type: Delete) {
     description = "Deletes runtime directory"
     delete 'runtime'
 }

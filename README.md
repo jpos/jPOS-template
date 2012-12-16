@@ -30,9 +30,9 @@ gradle dist
 ````
 This creates a tar gzipped file in the `build/distributions` directory.
 
-### Create the runtime directory
+### Install application in 'runtime' directory
 ````
-gradle runtime
+gradle installApp
 ````
 Creates a directory `runtime` with everything you need to run jPOS. Once the directory is created, you can `cd runtime` and call `java -jar your-project-version.jar` or the `bin/q2` script available in the `bin` directory.
 
