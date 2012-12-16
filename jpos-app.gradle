@@ -49,3 +49,9 @@ task installApp(type: Sync) {
     into { file("${project.buildDir}/install/${project.name}") }
     with jposCopySpec
 }
+
+task wrapper( type: Wrapper ) {
+    description = "Generate gradlew[.bat]"
+    gradleVersion = '1.3'
+}
+
