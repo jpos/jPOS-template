@@ -2,10 +2,21 @@ def archiveJarName="${project.name}-${project.version}.jar"
 
 // We build a CopySpec for consistency
 def jposCopySpec = copySpec {
+    def cfg = new Properties()
+    def target = project.hasProperty('target') ? target : 'devel'
+    cfg.put('jarname', archiveJarName.toString())
+    cfg.put('target', target.toString())
+    File cfgFile = file("${target}.properties")
+    if (cfgFile.exists()) {
+        cfgFile.withInputStream{
+            cfg.load(it);   
+        }
+    }
+    println (cfg)
     from(file("src/dist")) {
         filter(
             org.apache.tools.ant.filters.ReplaceTokens, 
-            tokens: [jarname: archiveJarName.toString()]
+            tokens: cfg
         )
     }
     from(jar) {
