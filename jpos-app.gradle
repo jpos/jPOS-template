@@ -12,7 +12,6 @@ def jposCopySpec = copySpec {
             cfg.load(it);   
         }
     }
-    println (cfg)
     from(file("src/dist")) {
         filter(
             org.apache.tools.ant.filters.ReplaceTokens, 
