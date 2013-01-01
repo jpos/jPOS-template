@@ -19,7 +19,7 @@ def jposCopySpec = copySpec {
         )
     }
     from(jar) {
-        rename { archiveJarName }
+        rename archiveJarName, "${cfg.jarname}"
     }
     into("lib") {
         from(configurations.runtime)
