@@ -13,10 +13,14 @@ def jposCopySpec = copySpec {
         }
     }
     from(file("src/dist")) {
+        exclude 'cfg/*.jks'
         filter(
             org.apache.tools.ant.filters.ReplaceTokens, 
             tokens: cfg
         )
+    }
+    from(file("src/dist")) {
+        include 'cfg/*.jks'
     }
     from(jar) {
         rename archiveJarName, "${cfg.jarname}"
