@@ -69,3 +69,10 @@ task wrapper( type: Wrapper ) {
     gradleVersion = '1.3'
 }
 
+// Only usable in jPOS-EE applications
+task jposeeSetup(dependsOn: 'classes', type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.jpos.ee.support.BasicSetup'
+    args = ["src/dist"]
+}
+
