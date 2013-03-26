@@ -42,7 +42,7 @@ gradle install
 ````
 
 ### List available Gradle tasks
-```
+````
 gradle tasks
 ````
 
