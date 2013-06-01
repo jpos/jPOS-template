@@ -1,12 +1,14 @@
 def archiveJarName="${project.name}-${project.version}.jar"
+def archiveWarName="${project.name}-${project.version}.war"
 
 // We build a CopySpec for consistency
 def jposCopySpec = copySpec {
     def cfg = new Properties()
     def target = project.hasProperty('target') ? target : 'devel'
     cfg.put('jarname', archiveJarName.toString())
+    cfg.put('warname', archiveWarName.toString())
     cfg.put('target', target.toString())
-    File cfgFile = file("${target}.properties")
+    File cfgFile = file("../../${target}.properties")
     if (cfgFile.exists()) {
         cfgFile.withInputStream{
             cfg.load(it);   
@@ -14,6 +16,10 @@ def jposCopySpec = copySpec {
     }
     from(file("src/dist")) {
         exclude 'cfg/*.jks'
+        exclude '**/*.jpg'
+        exclude '**/*.gif'
+        exclude '**/*.png'
+        exclude '**/*.pdf'
         filter(
             org.apache.tools.ant.filters.ReplaceTokens, 
             tokens: cfg
@@ -21,12 +27,21 @@ def jposCopySpec = copySpec {
     }
     from(file("src/dist")) {
         include 'cfg/*.jks'
+        include '**/*.jpg'
+        include '**/*.gif'
+        include '**/*.png'
+        include '**/*.pdf'
     }
     from(jar) {
         rename archiveJarName, "${cfg.jarname}"
     }
     into("lib") {
         from(configurations.runtime)
+    }
+    into("webapps") {
+        from(file("build/libs")) {
+            include '*.war'
+        }
     }
 }
 
@@ -58,7 +73,7 @@ task dist(type: Tar) {
     extension "tar.gz"
 }
 
-task installApp(type: Sync, dependsOn: 'installResources') {
+task installApp(type: Sync) {
     description 'Installs jPOS based application'
     into { file("${project.buildDir}/install/${project.name}") }
     with jposCopySpec
