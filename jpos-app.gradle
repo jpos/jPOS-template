@@ -1,19 +1,20 @@
 def archiveJarName="${project.name}-${project.version}.jar"
 def archiveWarName="${project.name}-${project.version}.war"
-
-// We build a CopySpec for consistency
-def jposCopySpec = copySpec {
-    def cfg = new Properties()
+project.ext {
+    targetConfiguration = new Properties()
     def target = project.hasProperty('target') ? target : 'devel'
-    cfg.put('jarname', archiveJarName.toString())
-    cfg.put('warname', archiveWarName.toString())
-    cfg.put('target', target.toString())
+    targetConfiguration.put('jarname', archiveJarName.toString())
+    targetConfiguration.put('warname', archiveWarName.toString())
+    targetConfiguration.put('target', target.toString())
     File cfgFile = file("../../${target}.properties")
     if (cfgFile.exists()) {
         cfgFile.withInputStream{
-            cfg.load(it);   
+            targetConfiguration.load(it);
         }
     }
+}
+
+def jposCopySpec = copySpec {
     from(file("src/dist")) {
         exclude 'cfg/*.jks'
         exclude '**/*.jpg'
@@ -22,7 +23,7 @@ def jposCopySpec = copySpec {
         exclude '**/*.pdf'
         filter(
             org.apache.tools.ant.filters.ReplaceTokens, 
-            tokens: cfg
+            tokens: targetConfiguration
         )
     }
     from(file("src/dist")) {
@@ -33,7 +34,7 @@ def jposCopySpec = copySpec {
         include '**/*.pdf'
     }
     from(jar) {
-        rename archiveJarName, "${cfg.jarname}"
+        rename archiveJarName, "${targetConfiguration.jarname}"
     }
     into("lib") {
         from(configurations.runtime)
