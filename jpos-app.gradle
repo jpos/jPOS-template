@@ -6,6 +6,7 @@ project.ext {
     targetConfiguration.put('jarname', archiveJarName.toString())
     targetConfiguration.put('warname', archiveWarName.toString())
     targetConfiguration.put('target', target.toString())
+    targetConfiguration.put("buildTimestamp", new Date().format("yyyy-MM-dd HH:mm:ss z"));
     File cfgFile = file("${target}.properties")
     if (cfgFile.exists()) {
         cfgFile.withInputStream{
@@ -27,6 +28,7 @@ def jposCopySpec = copySpec {
         )
     }
     from(file("src/dist")) {
+        include 'cfg/*.ks'
         include 'cfg/*.jks'
         include '**/*.jpg'
         include '**/*.gif'
@@ -55,6 +57,18 @@ jar.manifest {
         'Class-Path': configurations.runtime.collect { "lib/" + it.getName() }.join(' ')
 }
 
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.properties'
+        include '**/*.xml'
+        include '**/*.cfg'
+        include '**/*.asc'
+        filter(
+            org.apache.tools.ant.filters.ReplaceTokens, 
+            tokens: targetConfiguration
+        )
+    }
+}
 //--------------------------------------------------
 // TASKS
 //--------------------------------------------------
