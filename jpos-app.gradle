@@ -6,7 +6,7 @@ project.ext {
     targetConfiguration.put('jarname', archiveJarName.toString())
     targetConfiguration.put('warname', archiveWarName.toString())
     targetConfiguration.put('target', target.toString())
-    File cfgFile = file("../../${target}.properties")
+    File cfgFile = file("${target}.properties")
     if (cfgFile.exists()) {
         cfgFile.withInputStream{
             targetConfiguration.load(it);
