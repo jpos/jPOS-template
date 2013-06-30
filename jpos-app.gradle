@@ -1,5 +1,6 @@
 def archiveJarName="${project.name}-${project.version}.jar"
 def archiveWarName="${project.name}-${project.version}.war"
+def installDir=file("${project.buildDir}/install/${project.name}")
 project.ext {
     targetConfiguration = new Properties()
     def target = project.hasProperty('target') ? target : 'devel'
@@ -90,7 +91,7 @@ task dist(type: Tar) {
 
 task installApp(type: Sync) {
     description 'Installs jPOS based application'
-    into { file("${project.buildDir}/install/${project.name}") }
+    into { installDir }
     with jposCopySpec
 }
 
@@ -103,5 +104,10 @@ task installResources(dependsOn: 'classes', type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'org.jpos.q2.install.Install'
     args = ["--outputDir=src/dist"]
+}
+
+task run( dependsOn: 'installApp', type: Exec ) {
+    workingDir file("${project.buildDir}/install/${project.name}")
+    commandLine 'java','-jar',installDir
 }
 
