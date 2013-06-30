@@ -108,6 +108,6 @@ task installResources(dependsOn: 'classes', type: JavaExec) {
 
 task run( dependsOn: 'installApp', type: Exec ) {
     workingDir file("${project.buildDir}/install/${project.name}")
-    commandLine 'java','-jar',installDir
+    commandLine 'java','-jar', "${archiveJarName}"
 }
 
