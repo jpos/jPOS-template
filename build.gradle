@@ -10,9 +10,9 @@ targetCompatibility = 1.6
 
 repositories {
     mavenCentral()
-    mavenRepo name: 'oracle', url: "http://download.oracle.com/maven"
-    mavenRepo name: 'jline', url: "http://jline.sourceforge.net/m2repo"
-    mavenRepo url: "http://jpos.org/maven"
+    maven {url 'http://download.oracle.com/maven'}
+    maven {url 'http://jline.sourceforge.net/m2repo'}
+    maven {url 'http://jpos.org/maven' }
     mavenLocal()
 }
 
