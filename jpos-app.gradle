@@ -114,7 +114,7 @@ task installApp(type: Sync) {
 
 task wrapper( type: Wrapper ) {
     description = "Generate gradlew[.bat]"
-    gradleVersion = '1.8'
+    gradleVersion = '1.9'
 }
 
 task installResources(dependsOn: 'classes', type: JavaExec) {
