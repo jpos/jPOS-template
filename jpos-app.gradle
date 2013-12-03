@@ -102,8 +102,16 @@ task dist(type: Tar) {
     includeEmptyDirs true
     into "$project.name-$version"
     with jposCopySpec
-    compression = Compression.GZIP
     extension "tar.gz"
+}
+
+task zip(type: Zip) {
+    dependsOn 'assemble', 'sourceJar'
+    description 'Creates zip distribution'
+    includeEmptyDirs true
+    into "$project.name-$version"
+    with jposCopySpec
+    extension "zip"
 }
 
 task installApp(type: Sync) {
