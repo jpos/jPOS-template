@@ -136,3 +136,69 @@ task run( dependsOn: 'installApp', type: Exec ) {
     commandLine 'java','-jar', archiveJarName
 }
 
+class GitRevisionTask extends DefaultTask
+{
+    @InputFile @Optional
+    File gitHead
+    boolean gotHead
+
+    File getRefFile()
+    {
+        return new File(gitHead.parent,gitHead.text.replace('ref: ', '').trim())
+    }
+
+    @OutputFile
+    File outputFile
+
+    @TaskAction
+    public void writeFile()
+    {
+        Properties props=new Properties()
+        if (gotHead) {
+            File ref=getRefFile()
+            if (ref.exists()) {
+                props.put("branch",ref.getName())
+                props.put("revision",ref.text.substring(0,7))
+            } else {
+                props.put("branch", "detached");
+                props.put("revision", gitHead.text.substring(0,7))
+            }
+        } else {
+            props.put("branch", "unknown");
+            props.put("revision", "unknown");
+        }
+        props.store(new FileOutputStream(outputFile),"Revision Properties")
+    }
+}
+
+class BuildTimestampTask extends DefaultTask {
+    // We don't want to declare @OutputFile, 
+    // we need a fresh timestamp on every run
+    File outputFile
+
+    @TaskAction
+    public void writeFile() {
+        new File(outputFile.parent).mkdirs()
+        Properties props=new Properties()
+        props.put("projectName", project.name);
+        props.put("version", project.version);
+        props.put("buildTimestamp", new Date().format("yyyy-MM-dd HH:mm:ss z"));
+        props.store(new FileOutputStream(outputFile),"Revision Properties")
+    }
+}
+
+
+task createBuildTimestampPropertyFile(type: BuildTimestampTask) {
+    outputFile = "$sourceSets.main.output.resourcesDir/buildinfo.properties" as File
+}
+
+task createRevisionPropertyFile(type: GitRevisionTask) {
+    gitHead = "$rootDir/.git/HEAD" as File
+    gotHead = gitHead.exists()
+    if (!gotHead)
+        gitHead = null;
+    outputFile = "$sourceSets.main.output.resourcesDir/revision.properties" as File
+}
+
+processResources.dependsOn createBuildTimestampPropertyFile, createRevisionPropertyFile
+
