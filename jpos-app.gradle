@@ -136,7 +136,7 @@ task run( dependsOn: 'installApp', type: Exec ) {
     commandLine 'java','-jar', archiveJarName
 }
 
-task genDocker(type: Docker) {
+task genDocker(type: Docker, dependsOn: 'jar') {
     def projectName = project.name
     applicationName = "${projectName}"
     workingDir "/${projectName}"
