@@ -2,6 +2,14 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'docker'
+
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
 
 group = 'org.jpos.template'
 version = '1.0.0'
@@ -23,3 +31,11 @@ dependencies {
 
 apply from: 'jpos-app.gradle'
 
+genDocker {
+    baseImage "vmantek/docker-java8"
+    maintainer 'A jPOS Developer "developers@jpos.org"'
+    tag project.name
+    tagVersion "latest"
+    //--Uncomment and modify line below to expose a port.
+    //exposePort 4444
+}
