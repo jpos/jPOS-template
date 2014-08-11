@@ -136,6 +136,18 @@ task run( dependsOn: 'installApp', type: Exec ) {
     commandLine 'java','-jar', archiveJarName
 }
 
+task genDocker(type: Docker) {
+    def projectName = project.name
+    applicationName = "${projectName}"
+    workingDir "/${projectName}"
+    addFile {
+        into('/app') {
+            with(jposCopySpec)
+        }
+    }
+    defaultCommand = ["/bin/sh","/app/bin/q2"]
+}
+
 class GitRevisionTask extends DefaultTask
 {
     @InputFile @Optional
