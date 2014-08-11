@@ -139,7 +139,7 @@ task run( dependsOn: 'installApp', type: Exec ) {
 task genDocker(type: Docker, dependsOn: 'jar') {
     def projectName = project.name
     applicationName = "${projectName}"
-    workingDir "/${projectName}"
+    workingDir "/app"
     addFile {
         into('/app') {
             with(jposCopySpec)
