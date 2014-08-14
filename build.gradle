@@ -25,8 +25,11 @@ repositories {
 }
 
 dependencies {
-    compile group:'org.jpos', name:'jpos', version:'1.9.8'
-    testCompile group:'junit', name:'junit', version:'4.8.2'
+    compile ('org.jpos:jpos:1.9.8') {
+        exclude(module: 'junit')
+        exclude(module: 'hamcrest-core')
+    }
+    testCompile 'junit:junit:4.8.2'
 }
 
 apply from: 'jpos-app.gradle'
