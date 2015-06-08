@@ -216,3 +216,8 @@ task createRevisionPropertyFile(type: GitRevisionTask) {
 
 processResources.dependsOn createBuildTimestampPropertyFile, createRevisionPropertyFile
 
+task viewTests (description: 'Open Test Reports') << {
+    Class.forName("java.awt.Desktop").newInstance().browse(
+        new File("${buildDir}/reports/tests", 'index.html').toURI())
+}
+
