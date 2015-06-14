@@ -136,7 +136,6 @@ task run( dependsOn: 'installApp', type: Exec ) {
     commandLine 'java','-jar', archiveJarName
 }
 
-/*
 task genDocker(type: Docker, dependsOn: 'jar') {
     def projectName = project.name
     applicationName = "${projectName}"
@@ -148,7 +147,6 @@ task genDocker(type: Docker, dependsOn: 'jar') {
     }
     defaultCommand = ["/bin/sh","/app/bin/q2"]
 }
-*/
 
 class GitRevisionTask extends DefaultTask
 {
