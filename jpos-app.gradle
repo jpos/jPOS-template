@@ -145,7 +145,7 @@ task genDocker(type: Docker, dependsOn: 'jar') {
             with(jposCopySpec)
         }
     }
-    defaultCommand = ["/bin/sh","/app/bin/q2"]
+    defaultCommand = ["/app/bin/q2"]
 }
 
 class GitRevisionTask extends DefaultTask

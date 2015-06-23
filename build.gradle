@@ -41,6 +41,7 @@ genDocker {
     tag project.name
     tagVersion "latest"
     dryRun=true
+    runCommand 'chmod 755 /app/bin/q2 /app/bin/start /app/bin/stop /app/bin/bsh'
     //--Uncomment and modify line below to expose a port.
     //exposePort 4444
 }
