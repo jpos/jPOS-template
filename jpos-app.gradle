@@ -220,6 +220,6 @@ processResources.dependsOn createBuildTimestampPropertyFile, createRevisionPrope
 
 task viewTests (description: 'Open Test Reports') << {
     Class.forName("java.awt.Desktop").newInstance().browse(
-        new File("${buildDir}/reports/tests", 'index.html').toURI())
+        new File("${buildDir}/reports/tests/test", 'index.html').toURI())
 }
 
