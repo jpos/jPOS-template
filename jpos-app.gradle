@@ -1,14 +1,15 @@
-def archiveJarName="${project.name}-${project.version}.jar"
-def archiveWarName="${project.name}-${project.version}.war"
-def installDir=file("${project.buildDir}/install/${project.name}")
+String archiveJarName="${project.name}-${project.version}.jar"
+String archiveWarName="${project.name}-${project.version}.war"
+String installDir=file("${project.buildDir}/install/${project.name}")
 project.ext {
-    targetConfiguration = new Properties()
     def target = project.hasProperty('target') ? target : 'devel'
-    targetConfiguration.put('jarname', archiveJarName.toString())
-    targetConfiguration.put('warname', archiveWarName.toString())
-    targetConfiguration.put('target', target.toString())
-    targetConfiguration.put("buildTimestamp", new Date().format("yyyy-MM-dd HH:mm:ss z"));
-    File cfgFile = file("${target}.properties")
+    targetConfiguration = configure(new Properties()) {
+        jarname = archiveJarName
+        warname = archiveWarName
+        target  = target
+	buildTimestamp =  new Date().format("yyyy-MM-dd HH:mm:ss z")
+    }
+    File cfgFile = file("${rootProject.projectDir}/${target}.properties")
     if (cfgFile.exists()) {
         cfgFile.withInputStream{
             targetConfiguration.load(it);
@@ -16,13 +17,16 @@ project.ext {
     }
 }
 
+// We build a CopySpec for consistency
 def jposCopySpec = copySpec {
     from(file("src/dist")) {
+        exclude 'cfg/*.ks'
         exclude 'cfg/*.jks'
         exclude '**/*.jpg'
         exclude '**/*.gif'
         exclude '**/*.png'
         exclude '**/*.pdf'
+        exclude '**/*.ico'
         exclude '**/*.war'
         filter(
             org.apache.tools.ant.filters.ReplaceTokens, 
@@ -36,6 +40,7 @@ def jposCopySpec = copySpec {
         include '**/*.gif'
         include '**/*.png'
         include '**/*.pdf'
+        include '**/*.ico'
         include '**/*.war'
     }
     from(jar) {
