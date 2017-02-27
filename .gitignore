@@ -1,10 +1,19 @@
 *.swp
+.DS_Store
+
+# IDEA Ignores
 *.iml
 *.ipr
 *.iws
 .idea
+
+# Eclipse Ignores
+.classpath
+.metadata
 .settings
 .project
+
+# Gradle Ignores
 .gradle
 build
 
