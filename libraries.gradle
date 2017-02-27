@@ -1,0 +1,11 @@
+ext {
+    jposVersion = '2.1.+'
+    jposeeVersion = '2.2.+'
+
+    libraries = [
+        junit: 'junit:junit:4.12',
+        jpos: "org.jpos:jpos:${jposVersion}",
+        jposee_core: "org.jpos.ee:jposee-core:${jposeeVersion}",
+    ]
+}
+

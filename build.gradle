@@ -1,9 +1,7 @@
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-// apply plugin: 'docker'
+if (file('libraries.gradle').exists())
+    apply from: 'libraries.gradle'
 
+// apply plugin: 'docker'
 buildscript {
     repositories { jcenter() }
 //    dependencies {
@@ -11,27 +9,30 @@ buildscript {
 //    }
 }
 
-group = 'org.jpos.template'
-version = '2.0.6'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-    maven { url 'http://jpos.org/maven' }
-    maven { url 'http://download.oracle.com/maven' }
-    mavenLocal()
+allprojects {
+    apply plugin: 'maven'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+
+    group = 'org.jpos.template'
+    version = '2.1.0'
 }
 
-dependencies {
-    compile ('org.jpos:jpos:2.0.+') {
-        exclude(module: 'junit')
-        exclude(module: 'hamcrest-core')
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    [ compileJava, compileTestJava, javadoc ]*.options*.encoding = 'UTF-8'
+
+    repositories {
+        mavenCentral()
+        maven { url 'http://jpos.org/maven' }
+        maven { url 'http://download.oracle.com/maven' }
+        mavenLocal()
     }
-    testCompile 'junit:junit:4.8.2'
 }
 
-apply from: 'jpos-app.gradle'
 
 // genDocker {
 //     description 'Generate Docker Image'
@@ -45,8 +46,10 @@ apply from: 'jpos-app.gradle'
 //     //exposePort 4444
 // }
 
-// genDocker << {
-//     println "      # In order to build your image, run"
-//     println "      # cd build/docker && docker build -t='xxxx/xxxx' ."
+// genDocker  {
+//       doLast {
+//         println "      # In order to build your image, run"
+//         println "      # cd build/docker && docker build -t='xxxx/xxxx' ."
+//    }
 // }
 

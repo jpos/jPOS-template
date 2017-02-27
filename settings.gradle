@@ -1,0 +1,4 @@
+include ':modules:app'
+
+rootProject.name = 'jpos-template'
+
