@@ -2,13 +2,9 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
-// apply plugin: 'docker'
 
 buildscript {
     repositories { jcenter() }
-//    dependencies {
-//        classpath 'se.transmode.gradle:gradle-docker:1.2'
-//    }
 }
 
 group = 'org.jpos.template'
@@ -32,21 +28,4 @@ dependencies {
 }
 
 apply from: 'jpos-app.gradle'
-
-// genDocker {
-//     description 'Generate Docker Image'
-//     baseImage "jpos/ubuntu_vivid_jdk8"
-//     maintainer 'A jPOS Developer "developers@jpos.org"'
-//     tag project.name
-//     tagVersion "latest"
-//     dryRun=true
-//     runCommand 'chmod 755 /app/bin/q2 /app/bin/start /app/bin/stop /app/bin/bsh'
-//     //--Uncomment and modify line below to expose a port.
-//     //exposePort 4444
-// }
-
-// genDocker << {
-//     println "      # In order to build your image, run"
-//     println "      # cd build/docker && docker build -t='xxxx/xxxx' ."
-// }
 
