@@ -7,7 +7,7 @@ project.ext {
         jarname = archiveJarName
         warname = archiveWarName
         target  = target
-	buildTimestamp =  new Date().format("yyyy-MM-dd HH:mm:ss z")
+        buildTimestamp = new Date().format("yyyy-MM-dd HH:mm:ss z")
     }
     File cfgFile = file("${rootProject.projectDir}/${target}.properties")
     if (cfgFile.exists()) {
@@ -20,8 +20,11 @@ project.ext {
 // We build a CopySpec for consistency
 def jposCopySpec = copySpec {
     from(file("src/dist")) {
-        exclude 'cfg/*.ks'
+        exclude 'cfg/*.lmk'
         exclude 'cfg/*.jks'
+        exclude 'cfg/*.ks'
+        exclude 'cfg/*.ser'
+        exclude 'cfg/authorized_keys'
         exclude '**/*.jpg'
         exclude '**/*.gif'
         exclude '**/*.png'
@@ -34,8 +37,14 @@ def jposCopySpec = copySpec {
         )
     }
     from(file("src/dist")) {
+        include 'cfg/*.lmk'
         include 'cfg/*.ks'
         include 'cfg/*.jks'
+        include 'cfg/*.ser'
+        include 'cfg/authorized_keys'
+        fileMode 0400
+    }
+    from(file("src/dist")) {
         include '**/*.jpg'
         include '**/*.gif'
         include '**/*.png'
