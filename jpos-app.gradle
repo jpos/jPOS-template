@@ -43,7 +43,7 @@ def jposCopySpec = copySpec {
         include 'cfg/*.jks'
         include 'cfg/*.ser'
         include 'cfg/authorized_keys'
-        fileMode 0400
+        fileMode 0600
     }
     from(file("src/dist")) {
         include '**/*.jpg'
