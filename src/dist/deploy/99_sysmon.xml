@@ -2,5 +2,6 @@
  <!-- Environment: '@target@' -->
  <attr name="sleepTime" type="java.lang.Long">3600000</attr>
  <attr name="detailRequired" type="java.lang.Boolean">true</attr>
+ <property name="metrics-dir" value="log" />
 </sysmon>
 
