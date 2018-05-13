@@ -2,9 +2,23 @@
 
 cd `dirname $0`/.. || exit 1
 rm -f deploy/shutdown.xml
-exec java -server \
+
+if [ -f jpos.pid ] && ps -p $(cat jpos.pid) > /dev/null 2>&1
+then
+   echo "Process $(cat jpos.pid) is running"
+else
+  rm -f jpos.pid
+  exec java -server \
     -Xmx1G \
+    -Xloggc:log/gc.log \
     -Djava.net.preferIPv4Stack=true \
-    -Dcom.sun.management.jmxremote \
-    -jar @jarname@ "$@"
+    -Duser.timezone=GMT-3 \
+    -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses \
+    -XX:+UseConcMarkSweepGC  \
+    -XX:+AggressiveOpts \
+    -XX:+ParallelRefProcEnabled \
+    -XX:ParallelGCThreads=2 \
+    -XX:+TieredCompilation \
+    -jar @jarname@  --pid="jpos.pid" "$@"
+fi
 
