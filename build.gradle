@@ -24,6 +24,7 @@ dependencies {
         exclude(module: 'junit')
         exclude(module: 'hamcrest-core')
     }
+	compile group:'org.jpos.ee', name:'jposee-client-simulator', version:'2.2.1-SNAPSHOT'
     testCompile 'junit:junit:4.8.2'
 }
 
