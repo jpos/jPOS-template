@@ -1,0 +1,13 @@
+<isomsg>
+    <field id="0" value="1100" />
+    <field id="2" value="4111111234567892"/>
+    <field id="4" value="000000000100"/>
+    <field id="11" value="! System.currentTimeMillis() % 1000000" />
+    <field id="14" value="2003"/>
+    <field id="18" value="7011"/>
+    <field id="19" value="036"/>
+    <field id="37" value="124115342279"/>
+    <field id="41" value="12378945"/>
+    <field id="42" value="! (100000000000000l + System.currentTimeMillis()) % 1000000000000000l" />
+    <field id="49" value="036"/>
+</isomsg>

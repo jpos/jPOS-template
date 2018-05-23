@@ -1,5 +1,4 @@
 <?xml version="1.0" ?>
-
 <!--
   ~ jPOS Project [http://jpos.org]
   ~ Copyright (C) 2000-2012 Alejandro P. Revilla
@@ -17,17 +16,14 @@
   ~ You should have received a copy of the GNU Affero General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
-<channel-adaptor name='clientsimulator-adaptor'
-    class="org.jpos.q2.iso.ChannelAdaptor" logger="Q2">
- <channel class="org.jpos.iso.channel.XMLChannel" logger="Q2"
-       packager="org.jpos.iso.packager.XMLPackager">
-
-  <property name="host" value="127.0.0.1" />
-  <property name="port" value="10000" />
- </channel>
- <in>clientsimulator-send</in>
- <out>clientsimulator-receive</out>
- <reconnect-delay>10000</reconnect-delay>
+<channel-adaptor name='clientsimulator-adaptor' class="org.jpos.q2.iso.ChannelAdaptor" logger="Q2">
+  <channel class="org.jpos.iso.channel.ASCIIChannel" logger="Q2" packager="org.jpos.iso.packager.GenericPackager">
+    <property name="packager-config" value="cfg/client-packager.xml"/>
+    <property name="host" value="127.0.0.1" />
+    <property name="port" value="8000" />
+  </channel>
+  <in>clientsimulator-send</in>
+  <out>clientsimulator-receive</out>
+  <reconnect-delay>10000</reconnect-delay>
 </channel-adaptor>
 

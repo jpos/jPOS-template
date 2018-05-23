@@ -42,11 +42,11 @@
 
   <test-suite>
    <path>cfg/</path>
-   <test file="echo" count="20" continue="yes" name="Simple Echo Test">
+   <test file="auth" count="10" continue="yes" name="Authorisation request">
     <init>// print ("Init Script");</init>
     <post>// print ("Post Script");</post>
    </test>
-   <test file="echo" count="1" continue="yes" name="Simple Echo Test 2" />
+   <!-- <test file="echo" count="1" continue="yes" name="Simple Echo Test 2" /> -->
   </test-suite>
 
 </qbean>
