@@ -15,15 +15,11 @@
   ~ You should have received a copy of the GNU Affero General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
-<qbean name="clientSimulator" logger="Q2" realm="client-simulator"
-  class="org.jpos.simulator.TestRunner">
-
-  <property name="mux"     value="clientsimulator-mux" />
+<qbean name="clientSimulator" logger="Q2" realm="client-simulator" class="org.jpos.simulator.TestRunner">
+  <property name="mux" value="clientsimulator-mux" />
   <property name="timeout" value="30000" />
   <property name="sessions" value="1" />
   <property name="shutdown" value="true" />
-
   <init>
     import java.util.Date;
     import org.jpos.iso.ISODate;
@@ -38,16 +34,13 @@
         return ISODate.formatDate (new Date(), format);
     }
   </init>
-
-
   <test-suite>
-   <path>cfg/</path>
-   <test file="auth" count="10" continue="yes" name="Authorisation request">
-    <init>// print ("Init Script");</init>
-    <post>// print ("Post Script");</post>
-   </test>
-   <!-- <test file="echo" count="1" continue="yes" name="Simple Echo Test 2" /> -->
+    <path>cfg/</path>
+    <test file="auth" count="10" continue="yes" name="Authorisation request">
+      <init>// print ("Init Script");</init>
+      <post>// print ("Post Script");</post>
+    </test>
+    <!-- <test file="echo" count="1" continue="yes" name="Simple Echo Test 2" /> -->
   </test-suite>
-
 </qbean>
 
