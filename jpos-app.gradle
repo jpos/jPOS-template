@@ -138,11 +138,6 @@ task installApp(type: Sync) {
     with jposCopySpec
 }
 
-task wrapper( type: Wrapper ) {
-    description = "Generate gradlew[.bat]"
-    gradleVersion = '4.6'
-}
-
 task installResources(dependsOn: 'classes', type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'org.jpos.q2.install.Install'
