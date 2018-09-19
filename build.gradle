@@ -8,7 +8,7 @@ buildscript {
 }
 
 group = 'org.jpos.template'
-version = '2.1.1'
+version = '2.1.2'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compile ('org.jpos:jpos:2.1.1') {
+    compile ('org.jpos:jpos:2.1.2') {
         exclude(module: 'junit')
         exclude(module: 'hamcrest-core')
     }
