@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
@@ -8,23 +8,18 @@ buildscript {
 }
 
 group = 'org.jpos.template'
-version = '2.1.2'
+version = '2.1.4'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url 'http://jpos.org/maven' }
-    maven { url 'http://download.oracle.com/maven' }
+    maven { url 'https://jpos.org/maven' }
     mavenLocal()
 }
 
 dependencies {
-    compile ('org.jpos:jpos:2.1.2') {
-        exclude(module: 'junit')
-        exclude(module: 'hamcrest-core')
-    }
-    testCompile 'junit:junit:4.8.2'
+    implementation 'org.jpos:jpos:2.1.4-SNAPSHOT'
 }
 
 apply from: 'jpos-app.gradle'
