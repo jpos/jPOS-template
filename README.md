@@ -36,9 +36,9 @@ gradle installApp
 ````
 Installs application in `build/install` with everything you need to run jPOS. Once the directory is created, you can `cd build/install` and call `java -jar your-project-version.jar` or the `bin/q2` (or `q2.bat`) script available in the `bin` directory.
 
-### Generate an install a Maven artifact
+### Publish Maven artifacts
 ````
-gradle install
+gradle publish
 ````
 
 ### List available Gradle tasks

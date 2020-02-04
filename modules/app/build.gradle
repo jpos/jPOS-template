@@ -2,11 +2,11 @@ group = 'org.jpos.template.app'
 version = '2.0.6'
 
 dependencies {
-    compile (libraries.jpos)  {
+    implementation (libraries.jpos)  {
         exclude(module: 'junit')
         exclude(module: 'hamcrest-core')
     }
-    testCompile libraries.junit
+    testImplementation libraries.junit
 }
 
 apply from: "${rootProject.projectDir}/jpos-app.gradle"

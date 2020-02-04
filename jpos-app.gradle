@@ -58,7 +58,7 @@ def jposCopySpec = copySpec {
         rename archiveJarName, "${targetConfiguration.jarname}"
     }
     into("lib") {
-        from(configurations.runtime)
+        from(configurations.runtimeClasspath)
     }
     into("webapps") {
         from(file("build/libs")) {
@@ -73,7 +73,7 @@ jar.manifest {
         'Implementation-Title': project.name,
         'Implementation-Version': project.version,
         'Main-Class': 'org.jpos.q2.Q2',
-        'Class-Path': configurations.runtime.collect { "lib/" + it.getName() }.join(' ')
+        'Class-Path': configurations.runtimeClasspath.collect { "lib/" + it.getName() }.join(' ')
 }
 
 task sourceJar( type: Jar ) {
@@ -110,7 +110,7 @@ task version (type: JavaExec, dependsOn: classes) {
     description = "Shows jPOS Version"
     main = 'org.jpos.q2.Q2'
     args = ['--version']
-    classpath configurations.runtime 
+    classpath configurations.runtimeClasspath
 }
 
 task dist(type: Tar) {
@@ -118,18 +118,17 @@ task dist(type: Tar) {
     description 'Creates tar distribution'
     compression = Compression.GZIP
     includeEmptyDirs true
-    into "$project.name-$version"
+    into "$project.name-$project.version"
     with jposCopySpec
-    extension "tar.gz"
+    archiveExtension="tar.gz"
 }
 
 task zip(type: Zip) {
     dependsOn 'assemble', 'sourceJar'
     description 'Creates zip distribution'
     includeEmptyDirs true
-    into "$project.name-$version"
+    into "$project.name-$project.version"
     with jposCopySpec
-    extension "zip"
 }
 
 task installApp(type: Sync) {
@@ -167,11 +166,14 @@ class GitRevisionTask extends DefaultTask
 {
     @InputFile @Optional
     File gitHead
+
+    @Input 
     boolean gotHead
 
-    File getRefFile()
-    {
-        return new File(gitHead.parent,gitHead.text.replace('ref: ', '').trim())
+    @InputFile @Optional
+    File getRefFile() {
+        File rf = new File(gitHead.parent,gitHead.text.replace('ref: ', '').trim())
+        return rf.exists() ? rf : gitHead
     }
 
     @OutputFile
@@ -183,7 +185,7 @@ class GitRevisionTask extends DefaultTask
         Properties props=new Properties()
         if (gotHead) {
             File ref=getRefFile()
-            if (ref.exists()) {
+            if (ref != null && ref.exists()) {
                 props.put("branch",ref.getName())
                 props.put("revision",ref.text.substring(0,7))
             } else {
@@ -199,21 +201,18 @@ class GitRevisionTask extends DefaultTask
 }
 
 class BuildTimestampTask extends DefaultTask {
-    // We don't want to declare @OutputFile, 
-    // we need a fresh timestamp on every run
+    @OutputFile
     File outputFile
 
     @TaskAction
     public void writeFile() {
         new File(outputFile.parent).mkdirs()
         Properties props=new Properties()
-        props.put("projectName", project.name);
         props.put("version", project.version);
         props.put("buildTimestamp", new Date().format("yyyy-MM-dd HH:mm:ss z"));
         props.store(new FileOutputStream(outputFile),"Revision Properties")
     }
 }
-
 
 task createBuildTimestampPropertyFile(type: BuildTimestampTask) {
     outputFile = "$sourceSets.main.output.resourcesDir/buildinfo.properties" as File

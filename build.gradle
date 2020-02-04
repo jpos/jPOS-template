@@ -5,14 +5,13 @@ buildscript {
     repositories { jcenter() }
 }
 
-
 allprojects {
-    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
     apply plugin: 'idea'
     apply plugin: 'eclipse'
 
     group = 'org.jpos.template'
-    version = '2.1.2'
+    version = '2.1.4'
 }
 
 subprojects {
@@ -23,8 +22,7 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven { url 'http://jpos.org/maven' }
-        maven { url 'http://download.oracle.com/maven' }
+        maven { url 'https://jpos.org/maven' }
         mavenLocal()
     }
 }
