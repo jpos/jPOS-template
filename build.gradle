@@ -11,7 +11,7 @@ allprojects {
     apply plugin: 'eclipse'
 
     group = 'org.jpos.template'
-    version = '2.1.4'
+    version = '2.1.5'
 }
 
 subprojects {
