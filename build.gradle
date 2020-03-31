@@ -8,7 +8,7 @@ buildscript {
 }
 
 group = 'org.jpos.template'
-version = '2.1.4'
+version = '2.1.5'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jpos:jpos:2.1.4-SNAPSHOT'
+    implementation 'org.jpos:jpos:2.1.5-SNAPSHOT'
 }
 
 apply from: 'jpos-app.gradle'
