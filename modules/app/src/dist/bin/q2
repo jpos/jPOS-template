@@ -10,15 +10,7 @@ else
   rm -f jpos.pid
   exec java -server \
     -Xmx1G \
-    -Xloggc:log/gc.log \
     -Djava.net.preferIPv4Stack=true \
-    -Duser.timezone=GMT-3 \
-    -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses \
-    -XX:+UseConcMarkSweepGC  \
-    -XX:+AggressiveOpts \
-    -XX:+ParallelRefProcEnabled \
-    -XX:ParallelGCThreads=2 \
-    -XX:+TieredCompilation \
     -jar @jarname@  --pid="jpos.pid" "$@"
 fi
 
