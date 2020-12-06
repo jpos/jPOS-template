@@ -1,5 +1,5 @@
 ext {
-    jposVersion = '2.1.5-SNAPSHOT'
+    jposVersion = '2.1.6-SNAPSHOT'
     jposeeVersion = '2.2.7-SNAPSHOT'
 
     libraries = [
