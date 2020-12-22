@@ -67,6 +67,15 @@ def jposCopySpec = copySpec {
     }
 }
 
+def jposNoConfigCopySpec = copySpec {
+    from(jar) {
+        rename archiveJarName, "${targetConfiguration.jarname}"
+    }
+    into("lib") {
+        from(configurations.runtimeClasspath)
+    }
+}
+
 // Create the jar's manifest
 jar.manifest {
     attributes \
@@ -122,6 +131,17 @@ task dist(type: Tar) {
     into "$project.name-$project.version"
     with jposCopySpec
     archiveExtension="tar.gz"
+}
+
+task distnc (type: Tar) {
+    dependsOn 'assemble', 'sourceJar'
+    description 'Creates tar distribution without configuration'
+    compression = Compression.GZIP
+    includeEmptyDirs true
+    into "$project.name-$project.version"
+    with jposNoConfigCopySpec
+    archiveExtension="tar.gz"
+    archiveAppendix = "nc"
 }
 
 task zip(type: Zip) {
