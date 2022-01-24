@@ -8,7 +8,7 @@ buildscript {
 }
 
 group = 'org.jpos.template'
-version = '2.1.6-SNAPSHOT'
+version = '2.1.8-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
