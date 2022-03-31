@@ -1,25 +1,33 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
-buildscript {
-    repositories { jcenter() }
-}
-
 group = 'org.jpos.template'
-version = '2.1.8-SNAPSHOT'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+version = '3.0.0-SNAPSHOT'
+sourceCompatibility = 17
+targetCompatibility = 17
 
 repositories {
     mavenCentral()
-    maven { url 'https://jpos.org/maven' }
+    maven { url = uri('https://jpos.org/maven') }
+    maven { 
+        url = uri("https://maven.pkg.github.com/jPOS/jpos") 
+        credentials {
+            username = 'github'
+            password = 'anon'
+        }
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+        }
+    }
     mavenLocal()
+
 }
 
 dependencies {
-    implementation 'org.jpos:jpos:2.1.8-SNAPSHOT'
+    implementation 'org.jpos:jpos:3.0.0-SNAPSHOT'
 }
 
 apply from: 'jpos-app.gradle'
