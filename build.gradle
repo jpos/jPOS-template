@@ -14,10 +14,6 @@ repositories {
     maven { 
         url = uri("https://maven.pkg.github.com/jPOS/jpos") 
         credentials {
-            username = 'github'
-            password = 'anon'
-        }
-        credentials {
             username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
             password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
         }
