@@ -1,29 +1,38 @@
 if (file('libraries.gradle').exists())
     apply from: 'libraries.gradle'
 
-buildscript {
-    repositories { jcenter() }
-}
-
 allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'idea'
     apply plugin: 'eclipse'
 
     group = 'org.jpos.template'
-    version = '2.1.8-SNAPSHOT'
+    version = '3.0.0-SNAPSHOT'
 }
 
 subprojects {
     apply plugin: 'java'
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 17
+    targetCompatibility = 17
     [ compileJava, compileTestJava, javadoc ]*.options*.encoding = 'UTF-8'
 
     repositories {
         mavenCentral()
         maven { url 'https://jpos.org/maven' }
         mavenLocal()
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url = uri('https://jpos.org/maven') }
+        maven { 
+	    url = uri("https://maven.pkg.github.com/jPOS/jpos") 
+	    credentials {
+		username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+		password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+	    }
+         }
+         mavenLocal()
     }
 }
 
