@@ -21,18 +21,5 @@ subprojects {
         maven { url 'https://jpos.org/maven' }
         mavenLocal()
     }
-
-    repositories {
-        mavenCentral()
-        maven { url = uri('https://jpos.org/maven') }
-        maven { 
-	    url = uri("https://maven.pkg.github.com/jPOS/jpos") 
-	    credentials {
-		username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-		password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
-	    }
-         }
-         mavenLocal()
-    }
 }
 
