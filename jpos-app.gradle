@@ -193,8 +193,12 @@ class GitRevisionTask extends DefaultTask
 
     @InputFile @Optional
     File getRefFile() {
-        File rf = new File(gitHead.parent,gitHead.text.replace('ref: ', '').trim())
-        return rf.exists() ? rf : gitHead
+        if (gitHead != null) {
+            File rf = new File(gitHead.parent,gitHead.text.replace('ref: ', '').trim())
+            return rf.exists() ? rf : gitHead
+        } else {
+            return gitHead
+        }
     }
 
     @OutputFile
@@ -229,6 +233,7 @@ class BuildTimestampTask extends DefaultTask {
     public void writeFile() {
         new File(outputFile.parent).mkdirs()
         Properties props=new Properties()
+        props.put("projectName", project.name);
         props.put("version", project.version);
         props.put("buildTimestamp", new Date().format("yyyy-MM-dd HH:mm:ss z"));
         props.store(new FileOutputStream(outputFile),"Revision Properties")
