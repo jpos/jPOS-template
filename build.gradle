@@ -3,10 +3,6 @@ apply plugin: 'maven-publish'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
-buildscript {
-    repositories { jcenter() }
-}
-
 group = 'org.jpos.template'
 version = '2.1.8-SNAPSHOT'
 sourceCompatibility = 1.8
