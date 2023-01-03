@@ -5,8 +5,8 @@ apply plugin: 'eclipse'
 
 group = 'org.jpos.template'
 version = '2.1.8-SNAPSHOT'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     mavenCentral()
