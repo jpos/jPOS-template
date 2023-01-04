@@ -52,7 +52,7 @@
     -->
     <!--
      first-rotate-time and first-rotate-date determines the first rotation, 
-     succesive rotations will take place at the time determined by this two 
+     successive rotations will take place at the time determined by this two
      parameters plus multiples of window, the defaults are 00:00:00 and today 
      and the formats are HH:mm:ss and yyyy-MM-dd respectively
     -->
