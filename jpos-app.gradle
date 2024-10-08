@@ -23,6 +23,7 @@ def jposCopySpec = copySpec {
         exclude 'cfg/*.lmk'
         exclude 'cfg/*.jks'
         exclude 'cfg/*.ks'
+        exclude 'cfg/*.pfx'
         exclude 'cfg/*.ser'
         exclude 'cfg/authorized_keys'
         exclude '**/*.jpg'
@@ -40,6 +41,7 @@ def jposCopySpec = copySpec {
     from(file("src/dist")) {
         include 'cfg/*.lmk'
         include 'cfg/*.ks'
+        include 'cfg/*.pfx'
         include 'cfg/*.jks'
         include 'cfg/*.ser'
         include 'cfg/authorized_keys'
