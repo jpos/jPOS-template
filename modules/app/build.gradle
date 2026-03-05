@@ -1,12 +1,17 @@
+plugins {
+    id 'org.jpos.jposapp'
+}
+
 group = 'org.jpos.template.app'
 
 dependencies {
-    implementation (libraries.jpos)  {
+    implementation(libraries.jpos) {
         exclude(module: 'junit')
         exclude(module: 'hamcrest-core')
     }
     testImplementation libraries.junit
 }
 
-apply from: "${rootProject.projectDir}/jpos-app.gradle"
-
+jpos {
+    distDir.set('src/dist')
+}
