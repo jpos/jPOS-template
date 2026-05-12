@@ -3,15 +3,15 @@ plugins {
     id 'maven-publish'
     id 'idea'
     id 'eclipse'
-    id 'org.jpos.jposapp' version '0.0.16'
+    id 'org.jpos.jposapp' version '0.0.17'
 }
 
 group = 'org.jpos.template'
-version = '3.0.1-SNAPSHOT'
+version = '3.0.2-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(26)
     }
 }
 
@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jpos:jpos:3.0.1-SNAPSHOT'
+    implementation 'org.jpos:jpos:3.0.2-SNAPSHOT'
 }
 
 jpos {
