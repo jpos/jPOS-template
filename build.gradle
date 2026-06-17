@@ -1,5 +1,5 @@
 plugins {
-    id 'org.jpos.jposapp' version '0.0.16' apply false
+    id 'org.jpos.jposapp' version '0.0.17' apply false
 }
 
 if (file('libraries.gradle').exists()) {
@@ -12,7 +12,7 @@ allprojects {
     apply plugin: 'eclipse'
 
     group = 'org.jpos.template'
-    version = '3.0.0-SNAPSHOT'
+    version = '3.0.2-SNAPSHOT'
 }
 
 subprojects {
@@ -20,7 +20,7 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
+            languageVersion = JavaLanguageVersion.of(26)
         }
     }
 
