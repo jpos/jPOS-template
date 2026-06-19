@@ -1,6 +1,6 @@
 ext {
-    jposVersion = '2.1.8-SNAPSHOT'
-    jposeeVersion = '2.2.7-SNAPSHOT'
+    jposVersion = '3.0.2-SNAPSHOT'
+    jposeeVersion = '2.2.10-SNAPSHOT'
 
     libraries = [
         junit: 'junit:junit:4.12',
