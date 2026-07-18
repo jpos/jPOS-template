@@ -10,6 +10,11 @@ dependencies {
         exclude(module: 'hamcrest-core')
     }
     testImplementation libraries.junit
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+test {
+    useJUnitPlatform()
 }
 
 jpos {
