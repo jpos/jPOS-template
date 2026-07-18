@@ -1,11 +1,12 @@
 ext {
     jposVersion = '3.0.2-SNAPSHOT'
     jposeeVersion = '2.2.10-SNAPSHOT'
+    junitVersion = '5.14.4'
 
     libraries = [
-        junit: 'junit:junit:4.12',
         jpos: "org.jpos:jpos:${jposVersion}",
         jposee_core: "org.jpos.ee:jposee-core:${jposeeVersion}",
+        junit: "org.junit.jupiter:junit-jupiter:${junitVersion}",
     ]
 }
 
